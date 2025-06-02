@@ -1,45 +1,65 @@
-
-// pages/index.js
 import Head from 'next/head';
+import { useState } from 'react';
 
-export default function Home() {
+export default function Submit() {
+  const [submitted, setSubmitted] = useState(false);
+
   return (
-    <div className="min-h-screen bg-black text-white font-sans p-8">
+    <div className="min-h-screen bg-black text-white p-8 font-sans">
       <Head>
-        <title>Sozo Mojo Creative Contest</title>
-        <meta name="description" content="Unleash your creative genius with Sozo Mojo. Enter our inaugural contest and be part of the artistic renaissance." />
+        <title>Submit Entry – Sozo Mojo</title>
       </Head>
 
       <header className="text-center mb-12">
-        <h1 className="text-5xl font-bold mb-4">🔥 Sozo Mojo Creative Contest</h1>
-        <p className="text-xl text-gray-300">Real art. Real rewards. Zero BS.</p>
+        <h1 className="text-4xl font-bold mb-2">🎤 Submit Your Entry</h1>
+        <p className="text-gray-300">Show us what you've got. Mojo loves boldness.</p>
       </header>
 
-      <section className="text-center mb-16">
-        <h2 className="text-3xl font-semibold mb-4">💡 What’s This All About?</h2>
-        <p className="text-lg max-w-2xl mx-auto">
-          We're tired of cookie-cutter contests and boring winners. Sozo Mojo is here to bring soul back to the art world. Enter your original work, inspire the world, and win big.
-        </p>
-      </section>
-
-      <section className="text-center mb-16">
-        <h2 className="text-3xl font-semibold mb-4">🎨 Categories</h2>
-        <ul className="space-y-4">
-          <li>📝 Poetry</li>
-          <li>🎶 Music / Beats / Remixes</li>
-          <li>🎥 Short Films & Visuals</li>
-          <li>🖼️ Original Art / Design / Illustration</li>
-        </ul>
-      </section>
-
-      <section className="text-center">
-        <a
-          href="/submit"
-          className="inline-block bg-white text-black px-6 py-3 rounded-xl font-semibold hover:bg-gray-200 transition"
+      {!submitted ? (
+        <form
+          className="max-w-xl mx-auto space-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSubmitted(true);
+          }}
         >
-          Submit Your Entry
-        </a>
-      </section>
+          <div>
+            <label className="block text-sm mb-1">Name</label>
+            <input type="text" required className="w-full p-2 rounded text-black" />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Email</label>
+            <input type="email" required className="w-full p-2 rounded text-black" />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Category</label>
+            <select className="w-full p-2 rounded text-black">
+              <option>Poetry</option>
+              <option>Music</option>
+              <option>Visual Art</option>
+              <option>Short Film</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Link to Entry (Google Drive, YouTube, etc.)</label>
+            <input type="url" required className="w-full p-2 rounded text-black" />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Short Description</label>
+            <textarea className="w-full p-2 rounded text-black" rows="4" />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-white text-black py-3 rounded font-semibold hover:bg-gray-300 transition"
+          >
+            Submit Entry
+          </button>
+        </form>
+      ) : (
+        <div className="text-center text-green-400 text-xl">
+          ✅ Thank you for submitting! We’ll review and share soon.
+        </div>
+      )}
     </div>
   );
 }
