@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
+// Countdown Component
 function Countdown({ deadline }) {
   const calculateTimeLeft = () => {
     const difference = +new Date(deadline) - +new Date();
@@ -27,8 +28,8 @@ function Countdown({ deadline }) {
     return () => clearInterval(timer);
   }, []);
 
-  const timerComponents = Object.entries(timeLeft).map(([unit, value]) => (
-    <span key={unit} className="mx-1">
+  const timerDisplay = Object.entries(timeLeft).map(([unit, value]) => (
+    <span key={unit} className="mx-2">
       <span className="font-bold">{value}</span> <span className="text-gray-400">{unit}</span>
     </span>
   ));
@@ -37,32 +38,58 @@ function Countdown({ deadline }) {
     <div className="text-center mb-10">
       <h3 className="text-2xl font-semibold mb-2">⏳ Deadline Countdown</h3>
       <p className="text-lg">
-        {timerComponents.length ? timerComponents : <span className="text-red-500">Contest Closed</span>}
+        {timerDisplay.length > 0 ? timerDisplay : <span className="text-red-500">Contest Closed</span>}
       </p>
     </div>
   );
 }
 
+// Main Home Page
 export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white font-sans p-8">
       <Head>
-        <title>Sozo Mojo Contest</title>
+        <title>Sozo Mojo Creative Contest</title>
+        <meta name="description" content="The renaissance begins. Submit your creative entry by August 1, 2025." />
       </Head>
 
-      <h1 className="text-5xl font-bold text-center mb-8">🔥 Sozo Mojo Creative Contest</h1>
+      {/* Navigation */}
+      <nav className="flex justify-center space-x-6 text-sm mb-10">
+        <a href="/" className="hover:underline">Home</a>
+        <a href="/submit" className="hover:underline">Submit</a>
+        <a href="/gallery" className="hover:underline">Gallery</a>
+        <a href="/judges" className="hover:underline">Judges</a>
+      </nav>
 
+      {/* Title */}
+      <header className="text-center mb-12">
+        <h1 className="text-5xl font-bold mb-4">🔥 Sozo Mojo Creative Contest</h1>
+        <p className="text-xl text-gray-300">Real art. Real rewards. Zero BS.</p>
+      </header>
+
+      {/* Countdown Timer */}
       <Countdown deadline="2025-08-01T23:59:59" />
 
-      <p className="text-center text-gray-300 text-lg mb-8">
-        Submit your poetry, music, visuals or story — before the clock hits zero.
-      </p>
+      {/* Categories */}
+      <section className="text-center mb-16">
+        <h2 className="text-3xl font-semibold mb-4">🎨 Categories</h2>
+        <ul className="space-y-2">
+          <li>📝 Poetry</li>
+          <li>🎶 Music / Beats / Remixes</li>
+          <li>🎥 Short Films & Visuals</li>
+          <li>🖼️ Original Art / Design / Illustration</li>
+        </ul>
+      </section>
 
-      <div className="text-center">
-        <a href="/submit" className="bg-white text-black px-6 py-3 rounded-xl hover:bg-gray-300 transition">
+      {/* CTA Button */}
+      <section className="text-center">
+        <a
+          href="/submit"
+          className="inline-block bg-white text-black px-6 py-3 rounded-xl font-semibold hover:bg-gray-200 transition"
+        >
           Submit Your Entry
         </a>
-      </div>
+      </section>
     </div>
   );
 }
